@@ -25,3 +25,8 @@ func Uint[T Unsigned](x T) int {
 func Len[T any](v []T) int {
 	return (bits.Len64(uint64(len(v))|1) + 6) / 7
 }
+
+// MapLen same as Len, just for maps.
+func MapLen[K comparable, V any](x map[K]V) int {
+	return (bits.Len64(uint64(len(x))|1) + 6) / 7
+}

@@ -118,3 +118,18 @@ func TestLen(t *testing.T) {
 		})
 	}
 }
+
+func TestMapLen(t *testing.T) {
+	const N = 1024
+	for i := 0; i < N; i++ {
+		t.Run(fmt.Sprintf("map len %d", i), func(t *testing.T) {
+			x := make(map[int]bool, i+1)
+			got := varsize.MapLen(x)
+			var b [32]byte
+			want := binary.PutUvarint(b[:], uint64(len(x)))
+			if got != want {
+				t.Errorf("Len() = %v, want %v", got, want)
+			}
+		})
+	}
+}
